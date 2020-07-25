@@ -1,0 +1,3 @@
+---
+- name: install packages zsh
+  apt: name=zsh update_cache=yes

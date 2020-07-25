@@ -1,0 +1,8 @@
+---
+- hosts: vagrant
+  connection: local
+  become: yes
+  user: vagrant
+  roles:
+    - git
+    - zsh

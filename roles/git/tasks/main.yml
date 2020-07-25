@@ -1,0 +1,3 @@
+---
+- name: "apt-get install git"
+  apt: pkg=git
