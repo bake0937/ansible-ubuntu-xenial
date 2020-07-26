@@ -14,9 +14,10 @@ Vagrant.configure("2") do |config|
     end
 
     web.disksize.size = '40GB'
+
+    # Mutagen により、ホスト(PC)側とゲスト(ローカル開発環境)でファイルが同期された状態になる
     web.mutagen.orchestrate = true
 
-    # 現在のディレクトリにプロジェクトフォルダを置いていれてばローカル開発環境内でも操作が可能になる
     web.vm.synced_folder './', '/home/vagrant/projects', type: "rsync",
       rsync_auto: true,
       rsync__exclude: ['node_modules/', 'log/', 'tmp/']
