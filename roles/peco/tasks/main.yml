@@ -1,0 +1,38 @@
+---
+- name: Check peco install
+  stat: path=/usr/local/bin/peco
+  ignore_errors: True
+  register: result
+
+- name: Install packages peco
+  become: yes
+  get_url:
+    url: https://github.com/peco/peco/releases/download/v0.5.8/peco_linux_386.tar.gz
+    dest: /home/vagrant/
+  when: not result.stat.exists
+
+- name: Unarchive a file that is already on the remote machine
+  unarchive:
+    src: /home/vagrant/peco_linux_386.tar.gz
+    dest: /home/vagrant/
+    remote_src: yes
+  when: not result.stat.exists
+
+- name: Copy peco
+  copy:
+    src: /home/vagrant/peco_linux_386/peco
+    dest: /usr/local/bin
+    mode: a+x
+  when: not result.stat.exists
+
+- name: Remove peco_linux_386.tar.gz
+  file:
+    path: /home/vagrant/peco_linux_386.tar.gz
+    state: absent
+  when: not result.stat.exists
+
+- name: Remove peco_linux_386
+  file:
+    path: /home/vagrant/peco_linux_386
+    state: absent
+  when: not result.stat.exists
