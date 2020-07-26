@@ -1,0 +1,11 @@
+sync:
+  projects:
+    mode: "two-way-resolved"
+    alpha: "./"
+    beta: "ubuntu-xenial64:/home/vagrant/app"
+    ignore:
+      vcs: true
+      paths:
+        - "/node_modules"
+        - "/log"
+        - "/tmp"
