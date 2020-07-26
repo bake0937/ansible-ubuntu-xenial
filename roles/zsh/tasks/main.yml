@@ -1,3 +1,15 @@
 ---
 - name: install packages zsh
+  become: yes
   apt: name=zsh update_cache=yes
+
+- name: check shell
+  command: echo $SHELL
+  register: result
+
+- name: change shell
+  ignore_errors: True
+  become: yes
+  become_user: root
+  command: chsh -s /usr/bin/zsh vagrant
+  when: "'/bin/bash' in result.stdout"
