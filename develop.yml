@@ -6,3 +6,5 @@
   roles:
     - git
     - zsh
+    - peco
+    - zinit

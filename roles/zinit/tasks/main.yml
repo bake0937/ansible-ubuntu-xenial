@@ -1,0 +1,14 @@
+---
+- name: check zinit install
+  stat: path=/home/vagrant/.zinit/bin
+  ignore_errors: True
+  register: result
+
+- name: install packages zinit
+  become: yes
+  shell: >
+    yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)";
+    touch /home/vagrant/.zshrc;
+    source /home/vagrant/.zshrc;
+    zinit self-update;
+  when: not result.stat.exists
